@@ -988,6 +988,59 @@
             transform: scale(1.1);
         }
 
+        /* Gallery Section */
+        .gallery-grid {
+            column-count: 3;
+            column-gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-photo {
+            width: 100%;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+            break-inside: avoid;
+            display: block;
+        }
+
+        .gallery-photo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                column-count: 2;
+                column-gap: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid {
+                column-count: 2;
+                column-gap: 0.5rem;
+            }
+
+            .gallery-photo {
+                margin-bottom: 0.5rem;
+                border-radius: 8px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .gallery-grid {
+                column-count: 1;
+                column-gap: 0;
+            }
+
+            .gallery-photo {
+                margin-bottom: 0.8rem;
+            }
+        }
+
         /* Contact Section */
         .contact-content {
             text-align: center;
@@ -1705,6 +1758,7 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#projects">Projects</a></li>
+                <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#certifications">Certifications</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -1865,6 +1919,21 @@
             </div>
         </div>
     </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery">
+        <div class="container">
+            <h2 class="animate-on-scroll">Gallery</h2>
+            
+            <div class="gallery-grid">
+                <img src="images/dokumentasi/3.jpg" alt="Gallery Photo" class="gallery-photo animate-on-scroll">
+                <img src="images/dokumentasi/1.jpg" alt="Gallery Photo" class="gallery-photo animate-on-scroll">
+                <img src="images/dokumentasi/2.jpg" alt="Gallery Photo" class="gallery-photo animate-on-scroll">
+                
+            </div>
+        </div>
+    </section>
+
 
     <!-- Certifications Section -->
     <section id="certifications">
