@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>I Wayan Pius Wiprajana Samita - Portfolio</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -27,6 +27,24 @@
             line-height: 1.6;
             color: var(--primary-dark);
             background: linear-gradient(135deg, var(--primary-lightest) 0%, #ffffff 100%);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Responsive images */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Responsive text */
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Prevent horizontal scroll */
+        html, body {
+            max-width: 100%;
             overflow-x: hidden;
         }
 
@@ -345,6 +363,39 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+            position: absolute;
+            right: 1rem;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
         }
 
         nav ul {
@@ -355,6 +406,7 @@
             gap: 2rem;
             margin: 0;
             padding: 0;
+            transition: all 0.3s ease;
         }
 
         nav li {
@@ -777,7 +829,7 @@
         /* Certifications Section */
         .certifications-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -945,7 +997,7 @@
 
         .contact-info {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -980,21 +1032,58 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+            
+            .profile-container {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .hero-container {
+                gap: 3rem;
+            }
+        }
+
         @media (max-width: 768px) {
-            nav {
-                padding: 0.75rem 0;
+            /* Show hamburger menu */
+            .hamburger {
+                display: flex;
             }
 
+            /* Hide regular menu by default */
             nav ul {
-                flex-wrap: wrap;
-                gap: 0.5rem;
-                padding: 0 1rem;
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100vh;
+                background: rgba(30, 41, 59, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: left 0.3s ease;
+                z-index: 999;
+            }
+
+            /* Show menu when active */
+            nav ul.active {
+                left: 0;
             }
 
             nav a {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
-                border-radius: 20px;
+                padding: 1rem 2rem;
+                font-size: 1.2rem;
+                width: 200px;
+                text-align: center;
+            }
+
+            nav {
+                padding: 0.75rem 0;
             }
 
             .hero-container {
@@ -1029,13 +1118,13 @@
             }
 
             .certifications-grid {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
                 gap: 1.5rem;
             }
 
             .certificate-card {
                 margin: 0 auto;
-                max-width: 350px;
+                max-width: 400px;
             }
 
             .project-card:nth-child(even) .project-info,
@@ -1054,26 +1143,232 @@
             section {
                 padding: 4rem 0;
             }
+
+            .skills-list {
+                justify-content: center;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            /* Certificate Modal adjustments for tablet */
+            .certificate-modal-content {
+                width: 90%;
+                margin: 5% auto;
+            }
         }
 
         @media (max-width: 480px) {
+            .hamburger {
+                right: 0.5rem;
+            }
+
             nav ul {
-                gap: 0.25rem;
-                justify-content: space-around;
+                gap: 1.5rem;
             }
 
             nav a {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.85rem;
+                padding: 0.8rem 1.5rem;
+                font-size: 1.1rem;
+                width: 180px;
             }
 
             .hero-text h1 {
                 font-size: 2rem;
+                line-height: 1.1;
+            }
+
+            .hero-text .subtitle {
+                font-size: 1.2rem;
             }
 
             .profile-container {
                 width: 200px;
                 height: 200px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+            }
+
+            .cta-button {
+                width: 100%;
+                max-width: 250px;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .about-text p {
+                font-size: 1rem;
+                text-align: left;
+            }
+
+            .skill-category h3 {
+                font-size: 1.1rem;
+            }
+
+            .framework-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .progress-bar {
+                width: 100%;
+            }
+
+            .project-info {
+                padding: 1.5rem;
+            }
+
+            .project-info h3 {
+                font-size: 1.3rem;
+            }
+
+            .project-info p {
+                font-size: 0.95rem;
+            }
+
+            .certifications-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .certificate-card {
+                max-width: 100%;
+            }
+
+            .certificate-info {
+                padding: 1rem;
+            }
+
+            .certificate-info h3 {
+                font-size: 1.1rem;
+            }
+
+            .contact-item {
+                padding: 1.5rem;
+            }
+
+            .contact-item h3 {
+                font-size: 1.1rem;
+            }
+
+            /* Certificate Modal adjustments for mobile */
+            .certificate-modal-content {
+                width: 95%;
+                margin: 10% auto;
+                max-height: 80vh;
+            }
+
+            .certificate-modal img {
+                max-height: 75vh;
+            }
+
+            .modal-close {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+
+            /* Tech icons adjustments for mobile */
+            .tech-icon {
+                padding: 0.8rem;
+                font-size: 1.2rem;
+            }
+
+            /* Social links adjustments */
+            .social-links {
+                justify-content: center;
+            }
+
+            .social-links a {
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .hero-text h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-text .subtitle {
+                font-size: 1rem;
+            }
+
+            .profile-container {
+                width: 180px;
+                height: 180px;
+            }
+
+            nav a {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.8rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            .container {
+                padding: 0 0.5rem;
+            }
+
+            section {
+                padding: 3rem 0;
+            }
+        }
+
+        /* Landscape phone orientation */
+        @media (max-width: 812px) and (orientation: landscape) and (max-height: 375px) {
+            header {
+                min-height: 100vh;
+                padding: 4rem 0 2rem 0;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .profile-container {
+                width: 200px;
+                height: 200px;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            nav a {
+                padding: 0.4rem 0.8rem;
+            }
+        }
+
+        /* Large screens */
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1400px;
+            }
+
+            .hero-text h1 {
+                font-size: 4.5rem;
+            }
+
+            .profile-container {
+                width: 400px;
+                height: 400px;
             }
         }
 
@@ -1087,6 +1382,49 @@
         .animate-on-scroll.animated {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* Responsive utilities */
+        .text-center-mobile {
+            text-align: left;
+        }
+
+        @media (max-width: 768px) {
+            .text-center-mobile {
+                text-align: center;
+            }
+        }
+
+        /* Touch device improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .project-card:hover,
+            .certificate-card:hover,
+            .contact-item:hover {
+                transform: none;
+            }
+
+            .cta-button:hover,
+            .social-links a:hover,
+            nav a:hover {
+                transform: none;
+            }
+
+            /* Larger touch targets */
+            nav a {
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .cta-button {
+                min-height: 44px;
+            }
+
+            .social-links a {
+                min-width: 44px;
+                min-height: 44px;
+            }
         }
     </style>
 </head>
@@ -1123,7 +1461,12 @@
     <!-- Navigation -->
     <nav>
         <div class="container">
-            <ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul id="navMenu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#projects">Projects</a></li>
@@ -1380,6 +1723,38 @@
     </footer>
 
     <script>
+        // Hamburger Menu Toggle
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('#navMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                const navMenu = document.getElementById('navMenu');
+                const hamburger = document.querySelector('.hamburger');
+                
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            const nav = document.querySelector('nav');
+            
+            if (!nav.contains(e.target)) {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
