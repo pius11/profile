@@ -338,6 +338,102 @@
             background: rgba(255, 255, 255, 0.1);
         }
 
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+            z-index: 10;
+        }
+
+        .scroll-indicator .scroll-text {
+            color: var(--primary-dark);
+            font-size: 0.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .scroll-indicator .scroll-arrow {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--primary-dark);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .scroll-indicator .scroll-arrow::before {
+            content: '';
+            width: 14px;
+            height: 14px;
+            border-right: 2px solid var(--primary-dark);
+            border-bottom: 2px solid var(--primary-dark);
+            transform: rotate(45deg);
+            margin-top: -3px;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        .scroll-indicator:hover .scroll-text {
+            color: var(--primary-accent);
+        }
+
+        .scroll-indicator:hover .scroll-arrow {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--primary-accent);
+            transform: translateY(3px);
+        }
+
+        .scroll-indicator:hover .scroll-arrow::before {
+            border-color: var(--primary-accent);
+        }
+
+        /* Hide scroll indicator on small screens to avoid clutter */
+        @media (max-width: 768px) {
+            .scroll-indicator {
+                bottom: 1rem;
+            }
+            
+            .scroll-indicator .scroll-text {
+                font-size: 0.7rem;
+            }
+            
+            .scroll-indicator .scroll-arrow {
+                width: 32px;
+                height: 32px;
+            }
+
+            .scroll-indicator .scroll-arrow::before {
+                width: 10px;
+                height: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .scroll-indicator {
+                display: none;
+            }
+        }
+
         /* Navigation */
         nav {
             background: rgba(30, 41, 59, 0.3);
@@ -1744,6 +1840,12 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator" onclick="scrollToAbout()">
+            <span class="scroll-arrow"></span>
+            <span class="scroll-text">Scroll down</span>
+        </div>
     </header>
 
     <!-- Navigation -->
@@ -1771,8 +1873,8 @@
             <h2 class="animate-on-scroll">About Me</h2>
             <div class="about-content">
                 <div class="about-text animate-on-scroll">
-                    <p>Hello! I'm I Wayan Pius Wiprajana Samita, a passionate Full Stack Developer with expertise in multiple programming languages and frameworks. I love creating efficient, scalable, and user-friendly applications.</p>
-                    <p>With strong foundations in Java, PHP, and Python, I have successfully delivered projects using various frameworks including Laravel, Spring Boot, and Django. I'm always eager to learn new technologies and take on challenging projects.</p>
+                    <p>I am a Software Engineering Technology student at Bali State Polytechnic, focusing on backend development. Mastering the programming languages Java, PHP, and Python with frameworks like Spring Boot, Laravel, and Django, I enjoy building structured, efficient, and easily developed systems. Although primarily focused on the backend, I also have fundamental frontend experience to support the development of comprehensive applications.</p>
+                    <p>Beyond technical expertise, I am able to adapt quickly to new tools and work collaboratively within a team. My guiding principle is: "A good backend should be simple, scalable, and easy to maintain." I am intrigued by the challenges of software development and always eager to learn new things in the world of programming.</p>
                     
                     <div class="social-links">
                         <a href="https://www.instagram.com/pius_w_s/" target="_blank" title="Instagram">
@@ -2018,6 +2120,17 @@
     </footer>
 
     <script>
+        // Scroll to About section
+        function scrollToAbout() {
+            const aboutSection = document.querySelector('#about');
+            if (aboutSection) {
+                aboutSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
         // Hamburger Menu Toggle
         function toggleMenu() {
             const navMenu = document.getElementById('navMenu');
