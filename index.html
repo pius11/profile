@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>I Wayan Pius Wiprajana Samita - Portfolio</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
     <style>
         :root {
             --primary-dark: #1e293b;
@@ -1015,6 +1017,95 @@
             font-size: 1.2rem;
         }
 
+        /* PDF Certificate Card */
+        .certificate-card.pdf-card .certificate-image {
+            background: #f8f9fa;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+
+        .certificate-card.pdf-card .pdf-preview {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+        }
+
+        .certificate-card.pdf-card .pdf-thumbnail {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .certificate-card.pdf-card .pdf-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #dc3545;
+            font-size: 2rem;
+        }
+
+        .certificate-card.pdf-card .pdf-error {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .certificate-card.pdf-card .pdf-error i {
+            font-size: 3rem;
+            color: #dc3545;
+            margin-bottom: 12px;
+        }
+
+        .certificate-card.pdf-card .pdf-title {
+            font-size: 0.9rem;
+            color: #495057;
+            font-weight: 500;
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .certificate-card.pdf-card .pdf-watermark {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            font-size: 0.7rem;
+            color: #adb5bd;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .certificate-card.pdf-card .certificate-overlay {
+            background: rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .certificate-card.pdf-card:hover .certificate-overlay {
+            opacity: 1;
+        }
+
+        .certificate-card.pdf-card .certificate-overlay i {
+            font-size: 1.5rem;
+            color: #fff;
+        }
+
         /* Certificate Modal */
         .certificate-modal {
             display: none;
@@ -1068,6 +1159,124 @@
             top: 1rem;
             right: 1rem;
             background: rgba(0,0,0,0.7);
+        }
+
+        /* PDF Certificate Modal */
+        .pdf-certificate-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+        }
+
+        .pdf-modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 95%;
+            height: 95vh;
+            max-width: 1200px;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: modalSlideIn 0.3s ease-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-width: 768px) {
+            .pdf-modal-content {
+                width: 100%;
+                height: 100vh;
+                border-radius: 0;
+            }
+        }
+
+        .pdf-modal-header {
+            height: 60px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            flex-shrink: 0;
+        }
+
+        .pdf-modal-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #343a40;
+        }
+
+        .pdf-close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: #495057;
+            cursor: pointer;
+            padding: 5px;
+            transition: all 0.2s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .pdf-close-btn:hover {
+            color: #212529;
+            background: rgba(0,0,0,0.1);
+        }
+
+        .pdf-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            background: #f1f3f5;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pdf-viewer {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .pdf-container p {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #666;
+            font-size: 1rem;
+            padding: 20px;
+        }
+
+        .pdf-container a {
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .pdf-container a:hover {
+            text-decoration: underline;
+        }
             color: white;
             border: none;
             border-radius: 50%;
@@ -2070,9 +2279,31 @@
                     </div>
                 </div>
 
-                
-
-                
+                <!-- Certificate 3 (PDF) -->
+                <div class="certificate-card pdf-card animate-on-scroll" onclick="openPdfCertificate('images/certificate/komdigi.pdf', 'Kompetensi Digital')">
+                    <div class="certificate-image">
+                        <div class="pdf-preview">
+                            <canvas class="pdf-thumbnail" data-pdf="images/certificate/komdigi.pdf"></canvas>
+                            <div class="pdf-loading">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </div>
+                            <div class="pdf-error" style="display: none;">
+                                <i class="fas fa-file-pdf"></i>
+                                <div class="pdf-title">Kompetensi Digital</div>
+                                <span class="pdf-watermark">PDF</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="certificate-overlay">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="certificate-info">
+                        <h3>Junior Mobile Programmer Vocational School Graduate Academi Digital Telent Scholarship 2025</h3>
+                        <p class="certificate-issuer">Digital Talent Scholarship</p>
+                        <p class="certificate-date">11 Agustus 2025</p>
+                        <span class="certificate-badge">Complated</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -2082,6 +2313,23 @@
         <div class="certificate-modal-content">
             <button class="modal-close" onclick="closeCertificateModal()">&times;</button>
             <img id="modalCertificateImage" src="" alt="Certificate">
+        </div>
+    </div>
+
+    <!-- PDF Certificate Modal -->
+    <div id="pdfCertificateModal" class="pdf-certificate-modal">
+        <div class="pdf-modal-content">
+            <div class="pdf-modal-header">
+                <span class="pdf-modal-title">Certificate Preview</span>
+                <button class="pdf-close-btn" onclick="closePdfModal()">&times;</button>
+            </div>
+            <div class="pdf-container">
+                <object id="pdfViewer" class="pdf-viewer" type="application/pdf" data="">
+                    <embed id="pdfEmbed" class="pdf-viewer" type="application/pdf" />
+                    <p>It appears you don't have a PDF plugin for this browser. No worries! 
+                    <a id="pdfDownloadLink" href="" target="_blank">Click here to view the PDF</a></p>
+                </object>
+            </div>
         </div>
     </div>
 
@@ -2313,6 +2561,54 @@
             document.body.style.overflow = 'auto';
         }
 
+        // PDF Certificate functionality
+        function openPdfCertificate(pdfSrc, title) {
+            const modal = document.getElementById('pdfCertificateModal');
+            const pdfViewer = document.getElementById('pdfViewer');
+            const pdfEmbed = document.getElementById('pdfEmbed');
+            const pdfDownloadLink = document.getElementById('pdfDownloadLink');
+            const modalTitle = document.querySelector('.pdf-modal-title');
+            
+            modal.style.display = 'block';
+            
+            // Set the PDF source for both object and embed tags
+            pdfViewer.data = pdfSrc;
+            pdfEmbed.src = pdfSrc;
+            pdfDownloadLink.href = pdfSrc;
+            
+            modalTitle.textContent = title;
+            document.body.style.overflow = 'hidden';
+
+            // Fallback for browsers that don't support PDF embedding
+            if (!pdfViewer.data || pdfViewer.data === '') {
+                try {
+                    // Try using Mozilla's PDF.js if available
+                    pdfViewer.data = `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(window.location.origin + '/' + pdfSrc)}`;
+                } catch (e) {
+                    // If all else fails, try Google Docs Viewer
+                    pdfViewer.data = `https://docs.google.com/viewer?url=${encodeURIComponent(window.location.origin + '/' + pdfSrc)}&embedded=true`;
+                }
+            }
+        }
+
+        function closePdfModal() {
+            const modal = document.getElementById('pdfCertificateModal');
+            const pdfViewer = document.getElementById('pdfViewer');
+            const pdfEmbed = document.getElementById('pdfEmbed');
+            
+            modal.style.display = 'none';
+            pdfViewer.data = '';
+            pdfEmbed.src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close PDF modal when clicking outside
+        document.getElementById('pdfCertificateModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closePdfModal();
+            }
+        });
+
         // Close modal when clicking outside
         window.addEventListener('click', function(event) {
             const modal = document.getElementById('certificateModal');
@@ -2326,6 +2622,63 @@
             if (event.key === 'Escape') {
                 closeCertificateModal();
             }
+        });
+
+        // Initialize PDF.js
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        // Function to render PDF preview
+        async function renderPDFPreview(canvas, pdfUrl) {
+            try {
+                const loadingDiv = canvas.parentElement.querySelector('.pdf-loading');
+                const errorDiv = canvas.parentElement.querySelector('.pdf-error');
+                
+                // Load the PDF document
+                const loadingTask = pdfjsLib.getDocument(pdfUrl);
+                const pdf = await loadingTask.promise;
+
+                // Get the first page
+                const page = await pdf.getPage(1);
+
+                // Set the scale to fit the canvas
+                const viewport = page.getViewport({ scale: 1.0 });
+                const context = canvas.getContext('2d');
+
+                // Calculate scale to fit height while maintaining aspect ratio
+                const desiredHeight = 200; // Same as certificate-image height
+                const scale = desiredHeight / viewport.height;
+                const scaledViewport = page.getViewport({ scale });
+
+                // Set canvas dimensions
+                canvas.width = scaledViewport.width;
+                canvas.height = scaledViewport.height;
+
+                // Render the page
+                const renderContext = {
+                    canvasContext: context,
+                    viewport: scaledViewport
+                };
+
+                await page.render(renderContext).promise;
+                
+                // Hide loading spinner
+                if (loadingDiv) loadingDiv.style.display = 'none';
+                
+            } catch (error) {
+                console.error('Error rendering PDF preview:', error);
+                if (errorDiv) errorDiv.style.display = 'flex';
+                if (loadingDiv) loadingDiv.style.display = 'none';
+            }
+        }
+
+        // Render all PDF previews
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pdf-thumbnail').forEach(canvas => {
+                const pdfUrl = canvas.getAttribute('data-pdf');
+                if (pdfUrl) {
+                    renderPDFPreview(canvas, pdfUrl);
+                }
+            });
         });
     </script>
 </body>
