@@ -1243,6 +1243,7 @@
             background: #f1f3f5;
             padding: 0;
             margin: 0;
+            -webkit-overflow-scrolling: touch; /* Untuk scroll yang lebih baik di iOS */
         }
 
         .pdf-viewer {
@@ -1255,6 +1256,27 @@
             border: none;
             margin: 0;
             padding: 0;
+        }
+
+        /* Perbaikan untuk tampilan mobile */
+        @media (max-width: 768px) {
+            .pdf-modal-content {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                border-radius: 0;
+            }
+
+            .pdf-container {
+                height: calc(100% - 60px); /* Kurangi tinggi header */
+            }
+
+            .pdf-viewer {
+                position: relative;
+                height: 100%;
+                width: 100%;
+                overflow-y: auto;
+            }
         }
 
         .pdf-container p {
@@ -2570,23 +2592,35 @@
             const modalTitle = document.querySelector('.pdf-modal-title');
             
             modal.style.display = 'block';
-            
-            // Set the PDF source for both object and embed tags
-            pdfViewer.data = pdfSrc;
-            pdfEmbed.src = pdfSrc;
-            pdfDownloadLink.href = pdfSrc;
-            
             modalTitle.textContent = title;
             document.body.style.overflow = 'hidden';
 
-            // Fallback for browsers that don't support PDF embedding
-            if (!pdfViewer.data || pdfViewer.data === '') {
+            // Check if device is mobile
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            
+            if (isMobile) {
+                // For mobile devices, use Google Docs Viewer directly
+                const fullPath = window.location.origin + '/' + pdfSrc;
+                const googleViewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(fullPath)}&embedded=true`;
+                
+                // Replace object with iframe for better mobile compatibility
+                const container = document.querySelector('.pdf-container');
+                container.innerHTML = `<iframe class="pdf-viewer" src="${googleViewerUrl}" frameborder="0"></iframe>`;
+            } else {
+                // Desktop behavior
                 try {
-                    // Try using Mozilla's PDF.js if available
-                    pdfViewer.data = `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(window.location.origin + '/' + pdfSrc)}`;
+                    pdfViewer.data = pdfSrc;
+                    pdfEmbed.src = pdfSrc;
+                    pdfDownloadLink.href = pdfSrc;
+                    
+                    // Fallback for browsers that don't support PDF embedding
+                    if (!pdfViewer.data || pdfViewer.data === '') {
+                        const fullPath = window.location.origin + '/' + pdfSrc;
+                        pdfViewer.data = `https://docs.google.com/viewer?url=${encodeURIComponent(fullPath)}&embedded=true`;
+                    }
                 } catch (e) {
-                    // If all else fails, try Google Docs Viewer
-                    pdfViewer.data = `https://docs.google.com/viewer?url=${encodeURIComponent(window.location.origin + '/' + pdfSrc)}&embedded=true`;
+                    console.error('Error loading PDF:', e);
+                    pdfDownloadLink.style.display = 'block';
                 }
             }
         }
