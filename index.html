@@ -2216,6 +2216,34 @@
                         </div>
                     </div>
                 </div>
+                <!-- Project 4 -->
+                <div class="project-card animate-on-scroll">
+                    <div class="project-info">
+                        <h3>Shrivana - Web Business Profile</h3>
+                        <p>A business profile website of SHRIVANA property management business</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Laravel</span>
+                            <span class="tech-tag">Tailwindcss</span>
+                            <span class="tech-tag">php</span>
+                        </div>
+                        
+                    </div>
+                    <div class="project-images">
+                        <div class="image-container" onclick="nextImage(this)">
+                            <img src="images/project4/1.png" alt="Food Go Home" class="project-image active">
+                            <img src="images/project4/2.png" alt="Menu Management" class="project-image">
+                            <img src="images/project4/3.png" alt="Restaurant Map" class="project-image">
+                            
+                            <div class="image-indicators">
+                                <span class="indicator active" onclick="showImage(event, this, 0)"></span>
+                                <span class="indicator" onclick="showImage(event, this, 1)"></span>
+                                <span class="indicator" onclick="showImage(event, this, 2)"></span>
+                            </div>
+                            <button class="image-nav prev" onclick="prevImage(event, this)">‹</button>
+                            <button class="image-nav next" onclick="nextImage(event, this)">›</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -2264,6 +2292,18 @@
                         <h3>Trainee Programmer</h3>
                         <p class="certificate-issuer">PT.Dimata Sora Jayate</p>
                         <p class="certificate-date">6 Juni 2022</p>
+                        <span class="certificate-badge">Completed</span>
+                    </div>
+                </div>
+                <div class="certificate-card animate-on-scroll" onclick="openCertificateModal('images/certificate/bnspKampus.jpeg')">
+                    <img src="images/certificate/bnspKampus.jpeg" alt="Junior Mobile Programmer" class="certificate-image">
+                    <div class="certificate-overlay">
+                        <i class="fas fa-expand-alt"></i>
+                    </div>
+                    <div class="certificate-info">
+                        <h3>Junior Mobile Programmer</h3>
+                        <p class="certificate-issuer">BNSP (Badan Nasional Sertifikasi Profesi)</p>
+                        <p class="certificate-date">7 Agustus 2025</p>
                         <span class="certificate-badge">Completed</span>
                     </div>
                 </div>
