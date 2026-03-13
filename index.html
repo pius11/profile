@@ -2398,18 +2398,30 @@
         </div>
     </footer>
 
+    <!-- Efek background header dinamis oleh kursor -->
     <script>
-        // Scroll to About section
-        function scrollToAbout() {
-            const aboutSection = document.querySelector('#about');
-            if (aboutSection) {
-                aboutSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.querySelector('header');
+            if (!header) return;
+            header.classList.add('dynamic-bg');
+            document.addEventListener('mousemove', function(e) {
+                const rect = header.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const xPercent = Math.max(0, Math.min(1, x / rect.width));
+                const yPercent = Math.max(0, Math.min(1, y / rect.height));
+                const angle = 120 + Math.round(xPercent * 120);
+                const color1 = `rgba(59,130,246,${0.7 + 0.3 * yPercent})`;
+                const color2 = `rgba(16,185,129,${0.7 + 0.3 * xPercent})`;
+                header.style.background = `linear-gradient(${angle}deg, ${color1} 0%, var(--primary-medium) 50%, ${color2} 100%)`;
+            });
+            header.addEventListener('mouseleave', function() {
+                header.style.background = '';
+            });
+        });
+    </script>
 
+    <script>
         // Hamburger Menu Toggle
         function toggleMenu() {
             const navMenu = document.getElementById('navMenu');
