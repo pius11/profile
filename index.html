@@ -9,13 +9,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
     <style>
         :root {
-            --primary-dark: #1e293b;
-            --primary-medium: #334155;
-            --primary-light: #64748b;
-            --primary-accent: #3b82f6;
-            --primary-lightest: #f8fafc;
-            --secondary-accent: #10b981;
+            --primary-dark: #020617;
+            --primary-medium: #0f172a;
+            --primary-light: #1e293b;
+            --primary-accent: #a855f7;
+            --primary-lightest: #1e1b4b;
+            --secondary-accent: #d946ef;
             --tertiary-accent: #8b5cf6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: rgba(15, 23, 42, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
         * {
@@ -27,8 +31,13 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: var(--primary-dark);
-            background: linear-gradient(135deg, var(--primary-lightest) 0%, #ffffff 100%);
+            color: var(--text-main);
+            background: #020617;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(168, 85, 247, 0.15) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, rgba(217, 70, 239, 0.1) 0, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(88, 28, 135, 0.2) 0, transparent 50%);
+            background-attachment: fixed;
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
@@ -104,7 +113,7 @@
 
         /* Header */
         header {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-medium) 50%, var(--primary-accent) 100%);
+            background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #3b0764 100%);
             color: white;
             padding: 8rem 0 6rem 0;
             position: relative;
@@ -122,9 +131,9 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(217, 70, 239, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
         }
 
         header::after {
@@ -355,7 +364,7 @@
         }
 
         .scroll-indicator .scroll-text {
-            color: var(--primary-dark);
+            color: var(--text-main);
             font-size: 0.8rem;
             margin-bottom: 0.8rem;
             font-weight: 400;
@@ -366,7 +375,7 @@
         .scroll-indicator .scroll-arrow {
             width: 40px;
             height: 40px;
-            border: 2px solid var(--primary-dark);
+            border: 2px solid var(--text-main);
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -380,8 +389,8 @@
             content: '';
             width: 14px;
             height: 14px;
-            border-right: 2px solid var(--primary-dark);
-            border-bottom: 2px solid var(--primary-dark);
+            border-right: 2px solid var(--text-main);
+            border-bottom: 2px solid var(--text-main);
             transform: rotate(45deg);
             margin-top: -3px;
         }
@@ -438,7 +447,7 @@
 
         /* Navigation */
         nav {
-            background: rgba(30, 41, 59, 0.3);
+            background: rgba(2, 6, 23, 0.3);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             padding: 1rem 0;
@@ -454,7 +463,7 @@
 
         /* Navbar becomes more opaque when scrolled */
         nav.scrolled {
-            background: rgba(30, 41, 59, 0.8);
+            background: rgba(2, 6, 23, 0.85);
         }
 
         nav .container {
@@ -551,14 +560,14 @@
         }
 
         section:nth-child(even) {
-            background: rgba(248, 250, 252, 0.5);
+            background: rgba(15, 23, 42, 0.4);
         }
 
         h2 {
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 3rem;
-            color: var(--primary-dark);
+            color: var(--text-main);
             position: relative;
         }
 
@@ -679,8 +688,8 @@
         }
 
         .skill-tag {
-            background: var(--primary-lightest);
-            color: var(--primary-dark);
+            background: var(--primary-medium);
+            color: var(--text-main);
             padding: 0.5rem 1rem;
             border-radius: 20px;
             font-size: 0.9rem;
@@ -714,7 +723,9 @@
             justify-content: space-between;
             margin-bottom: 1rem;
             padding: 0.5rem;
-            background: white;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
@@ -759,10 +770,12 @@
         }
 
         .project-card {
-            background: white;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
             transition: all 0.3s ease;
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -795,13 +808,13 @@
         }
 
         .project-info h3 {
-            color: var(--primary-dark);
+            color: var(--text-main);
             font-size: 1.5rem;
             margin-bottom: 1rem;
         }
 
         .project-info p {
-            color: #666;
+            color: var(--text-muted);
             margin-bottom: 1.5rem;
             line-height: 1.7;
         }
@@ -814,8 +827,8 @@
         }
 
         .tech-tag {
-            background: var(--primary-lightest);
-            color: var(--primary-dark);
+            background: var(--primary-light);
+            color: var(--text-main);
             padding: 0.3rem 0.8rem;
             border-radius: 12px;
             font-size: 0.8rem;
@@ -933,10 +946,12 @@
         }
 
         .certificate-card {
-            background: white;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
             transition: all 0.3s ease;
             position: relative;
             animation: fadeInUp 1s ease-out;
@@ -963,7 +978,7 @@
         }
 
         .certificate-info h3 {
-            color: var(--primary-dark);
+            color: var(--text-main);
             font-size: 1.3rem;
             margin-bottom: 0.5rem;
             line-height: 1.3;
@@ -977,7 +992,7 @@
         }
 
         .certificate-date {
-            color: #666;
+            color: var(--text-muted);
             font-size: 0.9rem;
             margin-bottom: 1rem;
         }
@@ -1019,11 +1034,11 @@
 
         /* PDF Certificate Card */
         .certificate-card.pdf-card .certificate-image {
-            background: #f8f9fa;
+            background: var(--primary-dark);
             height: 200px;
             position: relative;
             overflow: hidden;
-            border: 1px solid #dee2e6;
+            border: 1px solid var(--glass-border);
         }
 
         .certificate-card.pdf-card .pdf-preview {
@@ -1033,7 +1048,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #fff;
+            background: var(--primary-medium);
         }
 
         .certificate-card.pdf-card .pdf-thumbnail {
@@ -1047,7 +1062,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: #dc3545;
+            color: var(--primary-accent);
             font-size: 2rem;
         }
 
@@ -1061,20 +1076,20 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: #f8f9fa;
+            background: var(--primary-dark);
             padding: 20px;
             box-sizing: border-box;
         }
 
         .certificate-card.pdf-card .pdf-error i {
             font-size: 3rem;
-            color: #dc3545;
+            color: var(--primary-accent);
             margin-bottom: 12px;
         }
 
         .certificate-card.pdf-card .pdf-title {
             font-size: 0.9rem;
-            color: #495057;
+            color: var(--text-main);
             font-weight: 500;
             text-align: center;
             margin-top: 8px;
@@ -1085,8 +1100,8 @@
             right: 10px;
             bottom: 10px;
             font-size: 0.7rem;
-            color: #adb5bd;
-            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-muted);
+            background: rgba(0, 0, 0, 0.5);
             padding: 2px 6px;
             border-radius: 3px;
         }
@@ -1126,7 +1141,8 @@
             width: 95%;
             max-width: 1000px;
             max-height: 90vh;
-            background: white;
+            background: var(--primary-medium);
+            border: 1px solid var(--glass-border);
             border-radius: 16px;
             overflow: hidden;
             animation: modalSlideIn 0.3s ease-out;
@@ -1181,7 +1197,8 @@
             width: 95%;
             height: 95vh;
             max-width: 1200px;
-            background: #fff;
+            background: var(--primary-medium);
+            border: 1px solid var(--glass-border);
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
@@ -1200,8 +1217,8 @@
 
         .pdf-modal-header {
             height: 60px;
-            background: #f8f9fa;
-            border-bottom: 1px solid #dee2e6;
+            background: var(--primary-dark);
+            border-bottom: 1px solid var(--glass-border);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -1212,14 +1229,14 @@
         .pdf-modal-title {
             font-size: 1.1rem;
             font-weight: 500;
-            color: #343a40;
+            color: var(--text-main);
         }
 
         .pdf-close-btn {
             background: none;
             border: none;
             font-size: 28px;
-            color: #495057;
+            color: var(--text-muted);
             cursor: pointer;
             padding: 5px;
             transition: all 0.2s ease;
@@ -1240,7 +1257,7 @@
             flex: 1;
             position: relative;
             overflow: hidden;
-            background: #f1f3f5;
+            background: var(--primary-medium);
             padding: 0;
             margin: 0;
         }
@@ -1263,7 +1280,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            color: #666;
+            color: var(--text-muted);
             font-size: 1rem;
             padding: 20px;
         }
@@ -1350,10 +1367,12 @@
         }
 
         .contact-item {
-            background: white;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
             padding: 2rem;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             transition: all 0.3s ease;
             animation: fadeInUp 1s ease-out;
         }
@@ -2322,7 +2341,8 @@
                             </div>
                             <div class="pdf-error" style="display: none;">
                                 <i class="fas fa-file-pdf"></i>
-                                <div class="pdf-title">Kompetensi Digital</div>
+                                <div class="pdf-title">Preview not available locally</div>
+                                <p style="font-size: 0.7rem; color: var(--text-muted); text-align: center; padding: 0 10px;">(Please use a web server or click to view)</p>
                                 <span class="pdf-watermark">PDF</span>
                             </div>
                         </div>
@@ -2331,10 +2351,10 @@
                         <i class="fas fa-eye"></i>
                     </div>
                     <div class="certificate-info">
-                        <h3>Junior Mobile Programmer Vocational School Graduate Academi Digital Telent Scholarship 2025</h3>
+                        <h3>Junior Mobile Programmer Vocational School Graduate Academy Digital Talent Scholarship 2025</h3>
                         <p class="certificate-issuer">Digital Talent Scholarship</p>
                         <p class="certificate-date">11 Agustus 2025</p>
-                        <span class="certificate-badge">Complated</span>
+                        <span class="certificate-badge">Completed</span>
                     </div>
                 </div>
             </div>
@@ -2674,10 +2694,19 @@
 
         // Function to render PDF preview
         async function renderPDFPreview(canvas, pdfUrl) {
+            const loadingDiv = canvas.parentElement.querySelector('.pdf-loading');
+            const errorDiv = canvas.parentElement.querySelector('.pdf-error');
+            
+            // Set a timeout to prevent infinite loading
+            const timeoutId = setTimeout(() => {
+                if (loadingDiv && loadingDiv.style.display !== 'none') {
+                    console.warn('PDF loading timed out:', pdfUrl);
+                    if (loadingDiv) loadingDiv.style.display = 'none';
+                    if (errorDiv) errorDiv.style.display = 'flex';
+                }
+            }, 10000); // 10 seconds timeout
+
             try {
-                const loadingDiv = canvas.parentElement.querySelector('.pdf-loading');
-                const errorDiv = canvas.parentElement.querySelector('.pdf-error');
-                
                 // Load the PDF document
                 const loadingTask = pdfjsLib.getDocument(pdfUrl);
                 const pdf = await loadingTask.promise;
@@ -2685,12 +2714,15 @@
                 // Get the first page
                 const page = await pdf.getPage(1);
 
+                // Clear timeout since it loaded
+                clearTimeout(timeoutId);
+
                 // Set the scale to fit the canvas
                 const viewport = page.getViewport({ scale: 1.0 });
                 const context = canvas.getContext('2d');
 
                 // Calculate scale to fit height while maintaining aspect ratio
-                const desiredHeight = 200; // Same as certificate-image height
+                const desiredHeight = 200; 
                 const scale = desiredHeight / viewport.height;
                 const scaledViewport = page.getViewport({ scale });
 
@@ -2710,6 +2742,7 @@
                 if (loadingDiv) loadingDiv.style.display = 'none';
                 
             } catch (error) {
+                clearTimeout(timeoutId);
                 console.error('Error rendering PDF preview:', error);
                 if (errorDiv) errorDiv.style.display = 'flex';
                 if (loadingDiv) loadingDiv.style.display = 'none';
