@@ -2027,9 +2027,30 @@
                 min-height: 44px;
             }
         }
+
+        /* Cursor Glow Effect */
+        .cursor-glow {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+            mix-blend-mode: screen;
+        }
+
+        @media (max-width: 768px) {
+            .cursor-glow {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="cursor-glow" id="cursorGlow"></div>
     <!-- Header -->
     <header id="home">
         <div class="header-content">
@@ -2280,6 +2301,7 @@
                 <img src="images/dokumentasi/WhatsApp Image 2026-03-09 at 10.02.24.jpeg" alt="Gallery Photo" class="gallery-photo animate-on-scroll">
                 <img src="images/dokumentasi/pp.png" alt="Gallery Photo" class="gallery-photo animate-on-scroll">
                 <img src="images/dokumentasi/WhatsApp Image 2026-05-07 at 10.29.38.jpeg" alt="Gallery Photo" class="gallery-photo animate-on-scroll">
+                <img src="images/dokumentasi/4.jpg" alt="Gallery Photo" class="gallery-photo animate-on-scroll">
                 
             </div>
         </div>
@@ -2420,26 +2442,42 @@
         </div>
     </footer>
 
-    <!-- Efek background header dinamis oleh kursor -->
+    <!-- Efek background header dan kursor dinamis -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const header = document.querySelector('header');
-            if (!header) return;
-            header.classList.add('dynamic-bg');
-            document.addEventListener('mousemove', function(e) {
-                const rect = header.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const xPercent = Math.max(0, Math.min(1, x / rect.width));
-                const yPercent = Math.max(0, Math.min(1, y / rect.height));
-                const angle = 120 + Math.round(xPercent * 120);
-                const color1 = `rgba(59,130,246,${0.7 + 0.3 * yPercent})`;
-                const color2 = `rgba(16,185,129,${0.7 + 0.3 * xPercent})`;
-                header.style.background = `linear-gradient(${angle}deg, ${color1} 0%, var(--primary-medium) 50%, ${color2} 100%)`;
-            });
-            header.addEventListener('mouseleave', function() {
-                header.style.background = '';
-            });
+            const glow = document.getElementById('cursorGlow');
+            
+            if (header) {
+                header.classList.add('dynamic-bg');
+                document.addEventListener('mousemove', function(e) {
+                    const rect = header.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    // Update header background if mouse is within or near header
+                    if (y < rect.height + 200) {
+                        const xPercent = Math.max(0, Math.min(1, x / rect.width));
+                        const yPercent = Math.max(0, Math.min(1, y / rect.height));
+                        const angle = 120 + Math.round(xPercent * 100);
+                        
+                        // Purple and Magenta tones
+                        const color1 = `rgba(168, 85, 247, ${0.4 + 0.3 * yPercent})`;
+                        const color2 = `rgba(217, 70, 239, ${0.3 + 0.3 * xPercent})`;
+                        header.style.background = `linear-gradient(${angle}deg, #020617 0%, ${color1} 40%, ${color2} 80%, #3b0764 100%)`;
+                    }
+
+                    // Update cursor glow position
+                    if (glow) {
+                        glow.style.left = e.clientX + 'px';
+                        glow.style.top = e.clientY + 'px';
+                    }
+                });
+
+                header.addEventListener('mouseleave', function() {
+                    header.style.background = '';
+                });
+            }
         });
     </script>
 
